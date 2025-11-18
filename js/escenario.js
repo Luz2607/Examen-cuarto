@@ -122,10 +122,15 @@ renderer.xr.addEventListener("sessionend", () => {
   camera.position.y = floorY + eyeHeight;
 });
 
-// --- Cargar tu cuarto (COLLADA / DAE) ---
+const MODEL_URL =
+  window.location.hostname === "localhost" ||
+  window.location.hostname === "127.0.0.1"
+    ? "./assets/models/cuarto_vr.dae"
+    : "https://github.com/Luz2607/Examen-cuarto/releases/download/v1.0/cuarto_vr.dae";
+
 const loader = new ColladaLoader();
 loader.load(
-  "./assets/models/cuarto_vr.dae",
+  MODEL_URL,
   (collada) => {
     const model = collada.scene;
 
@@ -146,6 +151,7 @@ loader.load(
     });
 
     scene.add(model);
+
 
     // Centramos el modelo alrededor del origen
     let box = new THREE.Box3().setFromObject(model);
