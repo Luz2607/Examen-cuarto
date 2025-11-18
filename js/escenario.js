@@ -122,14 +122,33 @@ renderer.xr.addEventListener("sessionend", () => {
   camera.position.y = floorY + eyeHeight;
 });
 
-const MODEL_URL =
+// --- Config local vs GitHub (modelo + texturas) ---
+const isLocalhost =
   window.location.hostname === "localhost" ||
-  window.location.hostname === "127.0.0.1"
-    ? "./assets/models/cuarto_vr.dae"
-    : "https://raw.githubusercontent.com/Luz2607/Examen-cuarto-modelo/main/cuarto_vr.dae";
+  window.location.hostname === "127.0.0.1";
 
+const MODEL_URL = isLocalhost
+  ? "./assets/models/cuarto_vr.dae"   // tu archivo local
+  : "https://media.githubusercontent.com/media/Luz2607/Examen-cuarto-modelo/refs/heads/main/cuarto_vr.dae";
+const REMOTE_TEXTURE_BASE =
+  "https://raw.githubusercontent.com/Luz2607/Examen-cuarto-modelo/main/cuarto_vr/";
 
-const loader = new ColladaLoader();
+// LoadingManager para reescribir rutas de texturas SOLO en GitHub
+const manager = new THREE.LoadingManager();
+if (!isLocal) {
+  manager.setURLModifier((url) => {
+    // Si ya es absoluta (http/https), la dejamos igual
+    if (/^https?:\/\//i.test(url)) return url;
+
+    // Si el .dae pide "Carpet_Frieze_Low.jpg"
+    // la convertimos a:
+    // https://raw.githubusercontent.com/.../cuarto_vr/Carpet_Frieze_Low.jpg
+    return REMOTE_TEXTURE_BASE + url;
+  });
+}
+
+// --- Cargar tu cuarto (COLLADA / DAE) ---
+const loader = new ColladaLoader(manager);
 loader.load(
   MODEL_URL,
   (collada) => {
@@ -152,7 +171,6 @@ loader.load(
     });
 
     scene.add(model);
-
 
     // Centramos el modelo alrededor del origen
     let box = new THREE.Box3().setFromObject(model);
