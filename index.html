@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Cuarto VR Inmersivo</title>
+
+  <!-- Vista responsive y uso completo en móviles -->
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+
+  <!-- Metadatos -->
+  <meta name="description"
+        content="Explora un cuarto 3D inmersivo en realidad virtual. Muévete con WASD o con un control VR y recorre el ambiente con colisiones y altura de cámara realista." />
+  <meta name="author" content="Luz María Cruz García - Ingeniería en Tecnologías de la Información y Comunicaciones, 9.º semestre" />
+  <meta name="theme-color" content="#050814" />
+
+  <!-- Bootstrap (antes de tus estilos) -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+
+  <!-- Estilos propios -->
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Importmap para Three.js y addons -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Barra minimalista -->
+  <header class="topbar" aria-label="Barra superior">
+    <div class="brand" aria-label="Proyecto Cuarto VR">
+      <span class="dot" aria-hidden="true"></span>
+      <span>Cuarto VR</span>
+    </div>
+  </header>
+
+  <!-- Overlay de instrucciones -->
+  <section class="hud" id="hud" aria-labelledby="hud-title">
+    <div class="hud-inner">
+      <h1 id="hud-title">Explora tu cuarto en VR</h1>
+
+      <p>
+        En escritorio usa <kbd>WASD</kbd> o las flechas para moverte.
+        <br>
+        En VR, usa el control (stick o botón principal) para avanzar en la dirección de la mirada.
+      </p>
+
+      <ul>
+        <li>Altura inicial de cámara ≈ <strong>1.6 m</strong> (ojos).</li>
+        <li>Colisiones simples: no puedes atravesar paredes ni muebles.</li>
+        <li>Pulsa el botón <strong>Enter VR</strong> para entrar al modo VR.</li>
+      </ul>
+
+      <!-- Datos del programador dentro del HUD -->
+      <div class="dev-footer-inline">
+        <small>
+          Desarrollado por <strong>Luz María Cruz García</strong> ·
+          Ingeniería en Tecnologías de la Información y Comunicaciones · 21200647
+        </small>
+      </div>
+
+      <button id="btnCerrarHud" class="primary" type="button">Entendido</button>
+    </div>
+  </section>
+
+  <!-- Contenedor del canvas de Three.js -->
+  <main id="app" aria-label="Visor 3D del cuarto VR"></main>
+
+  <!-- Bootstrap JS (solo una vez) -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous">
+  </script>
+
+  <!-- Lógica de la escena -->
+  <script type="module" src="js/escenario.js"></script>
+</body>
+</html>
