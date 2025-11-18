@@ -126,7 +126,7 @@ const MODEL_URL =
   window.location.hostname === "localhost" ||
   window.location.hostname === "127.0.0.1"
     ? "./assets/models/cuarto_vr.dae"
-    : "https://media.githubusercontent.com/media/Luz2607/Examen-cuarto-modelo/refs/heads/main/cuarto_vr.dae";
+    : "https://raw.githubusercontent.com/Luz2607/Examen-cuarto-modelo/main/cuarto_vr.dae";
 
 const loader = new ColladaLoader();
 loader.load(
